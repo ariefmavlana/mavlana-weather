@@ -33,6 +33,8 @@ export default function LocationDropdown({ location, setLocation }: Props) {
 }
 
 const locations = [
+    "Bandung",
+    "Jakarta",
     "Bangkok",
     "Tokyo",
     "Seoul",
