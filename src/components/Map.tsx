@@ -1,7 +1,17 @@
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import type { Coords } from "../types"
+import L from "leaflet"
+import markerIcon from "leaflet/dist/images/marker-icon.png"
+import markerIconRetina from "leaflet/dist/images/marker-icon-2x.png"
+import markerShadow from "leaflet/dist/images/marker-shadow.png"
 
+// Fix for default marker icon issue in Leaflet with bundlers
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: markerIconRetina,
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+})
 
 const API_KEY = import.meta.env.VITE_API_KEY
 
