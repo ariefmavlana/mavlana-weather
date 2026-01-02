@@ -30,6 +30,7 @@ export default function MapTypeDropdown({ mapType, setMapType }: Props) {
 }
 
 const types = [
+    "standard",
     "clouds_new",
     "precipitation_new",
     "pressure_new",

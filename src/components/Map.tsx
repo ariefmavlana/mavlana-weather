@@ -1,8 +1,7 @@
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import type { Coords } from "../types"
-import { useEffect } from "react"
-import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk"
+
 
 const API_KEY = import.meta.env.VITE_API_KEY
 
@@ -21,15 +20,21 @@ export default function Map({ coords, onMapClick, mapType }: Props) {
             style={{ width: "100%", height: "100%" }}
         >
             <MapClick onMapClick={onMapClick} coords={coords} />
-            <MapTileLayer />
             <TileLayer
-                opacity={0.7}
-                url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             />
+            {mapType !== "standard" && (
+                <TileLayer
+                    opacity={0.4}
+                    url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
+                />
+            )}
             <Marker position={[lat, lon]} />
         </MapContainer>
     )
 }
+
 
 function MapClick({
     onMapClick,
@@ -49,20 +54,3 @@ function MapClick({
     return null
 }
 
-function MapTileLayer() {
-    const map = useMap()
-
-    useEffect(() => {
-        const tileLayer = new MaptilerLayer({
-            style: "basic-dark",
-            apiKey: "IhKaCSDZTkOXDUTqcSbm",
-        })
-        tileLayer.addTo(map)
-
-        return () => {
-            map.removeLayer(tileLayer)
-        }
-    }, [map])
-
-    return null
-}

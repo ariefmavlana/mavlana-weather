@@ -3,6 +3,7 @@ type Props = {
 }
 
 export default function MapLegend({ mapType }: Props) {
+    if (mapType === "standard") return null
     const data = mapTypeData[mapType]
 
     const maxValue = data.stops[data.stops.length - 1].value
